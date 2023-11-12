@@ -1,0 +1,23 @@
+model_base_dir=/mnt/workspace/algo-2/wxt/demoLB1u/
+init_checkpoint=$model_base_dir"ptms/chinese_labert-lite-std-512/"
+vocab_file=$init_checkpoint"vocab.txt"
+labert_config_file=$init_checkpoint"labert_config.json"
+lexicon_file=$init_checkpoint"lexicon.txt"
+data_dir=$model_base_dir"demo"
+output_dir=$model_base_dir"demo/model11"
+CUDA_VISIBLE_DEVICES="0" /hpf/anaconda3/envs/tf2/bin/python AliceMind_main/LatticeBERT/run_sequence_labeling_crf_labert.py \
+        --init_checkpoint=$init_checkpoint \
+        --data_dir=$data_dir \
+        --labert_config_file=$labert_config_file \
+        --lexicon_file=$lexicon_file \
+        --vocab_file=$vocab_file \
+        --task_name=ner \
+        --use_named_lexicon=False \
+        --do_train=true \
+        --do_eval=true \
+        --learning_rate=5e-5 \
+        --num_train_epochs=30 \
+        --output_dir=$output_dir \
+        --train_batch_size=128 \
+        --n_gpus=1
+        
